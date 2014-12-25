@@ -1,0 +1,51 @@
+package com.wxad.silence.domain;
+
+/**
+ * 删除指定包名数据
+ * @author xuzhenqin
+ *
+ */
+public class DeleteInfo extends RemarkId {
+	
+	/**
+	 * 要删除的包名
+	 */
+	private String packageName;
+	
+	/**
+	 * push id
+	 */
+	private String pushId;
+	
+	/**
+	 * 获得要删除的包名
+	 * @return
+	 */
+	public String getPackageName() {
+		return packageName;
+	}
+	
+	/**
+	 * 设置要删除的包名
+	 * @param packageName
+	 */
+	public void setPackageName(String packageName) {
+		this.packageName = packageName;
+	}
+	
+	/**
+	 * 获得pushId
+	 * @return
+	 */
+	public String getPushId() {
+		return pushId;
+	}
+	
+	/**
+	 * 设置pushId
+	 * @param pushId
+	 */
+	public void setPushId(String pushId) {
+		this.pushId = pushId;
+	}
+}

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxad.silence.persistence.PushRuleInfoMapper">
+	<resultMap id="BaseResultMap" type="com.wxad.silence.domain.PushRuleInfo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="pushId" property="pushId" jdbcType="VARCHAR" />
+		<result column="apkNum" property="apkNum" jdbcType="VARCHAR" />
+		<result column="pushUrl" property="pushUrl" jdbcType="VARCHAR" />
+		<result column="deviceUrl" property="deviceUrl" jdbcType="VARCHAR" />
+		<result column="requestRate" property="requestRate" jdbcType="VARCHAR" />
+		<result column="country" property="country" jdbcType="VARCHAR" />
+		<result column="size" property="size" jdbcType="VARCHAR" />
+		<result column="ram" property="ram" jdbcType="VARCHAR" />
+		<result column="channel" property="channel" jdbcType="VARCHAR" />
+		<result column="isTablet" property="isTablet" jdbcType="VARCHAR" />
+		<result column="systemVersion" property="systemVersion"
+			jdbcType="VARCHAR" />
+		<result column="sdkVersion" property="sdkVersion" jdbcType="VARCHAR" />
+		<result column="model" property="model" jdbcType="VARCHAR" />
+		<result column="resolution" property="resolution" jdbcType="VARCHAR" />
+		<result column="rom" property="rom" jdbcType="VARCHAR" />
+		<result column="hasSim" property="hasSim" jdbcType="VARCHAR" />
+		<result column="isRoot" property="isRoot" jdbcType="VARCHAR" />
+		<result column="hardware" property="hardware" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<insert id="insertPushRuleInfo" parameterType="com.wxad.silence.domain.PushRuleInfo">
+		<selectKey resultType="java.lang.Integer" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into pushrule
+		(pushId,apkNum,pushUrl,deviceUrl,requestRate,country,size,ram,channel,isTablet,systemVersion,
+		sdkVersion,model,resolution,rom,hasSim,isRoot,hardware)
+		values
+		(#{pushId,jdbcType=VARCHAR},
+		#{apkNum,jdbcType=VARCHAR},
+		#{pushUrl,jdbcType=VARCHAR},
+		#{deviceUrl,jdbcType=VARCHAR},
+		#{requestRate,jdbcType=VARCHAR},
+		#{country,jdbcType=VARCHAR},
+		#{size,jdbcType=VARCHAR},
+		#{ram,jdbcType=VARCHAR},
+		#{channel,jdbcType=VARCHAR},
+		#{isTablet,jdbcType=VARCHAR},
+		#{systemVersion,jdbcType=VARCHAR},
+		#{sdkVersion,jdbcType=VARCHAR},
+		#{model,jdbcType=VARCHAR},
+		#{resolution,jdbcType=VARCHAR},
+		#{rom,jdbcType=VARCHAR},
+		#{hasSim,jdbcType=VARCHAR},
+		#{isRoot,jdbcType=VARCHAR},
+		#{hardware,jdbcType=VARCHAR})
+	</insert>
+
+	<sql id="Base_Column_List">
+		id,
+		pushId,apkNum,pushUrl,deviceUrl,requestRate,country,size,ram,channel,isTablet,systemVersion,sdkVersion,model,resolution,rom,hasSim,isRoot,hardware
+	</sql>
+
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from pushrule
+	</select>
+
+	<select id="getByPushId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from pushrule where id=#{pushId}
+	</select>
+
+	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from pushrule where id=#{id}
+	</select>
+</mapper>

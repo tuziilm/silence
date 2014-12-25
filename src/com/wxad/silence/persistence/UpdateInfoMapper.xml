@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.wxad.silence.persistence.UpdateInfoMapper">
+	<resultMap id="BaseResultMap" type="com.wxad.silence.domain.UpdateInfo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="pushId" property="pushId" jdbcType="VARCHAR" />
+		<result column="version" property="version" jdbcType="VARCHAR" />
+		<result column="url" property="url" jdbcType="VARCHAR" />
+		<result column="hash" property="hash" jdbcType="VARCHAR" />
+	</resultMap>
+
+	<insert id="insertUpdateInfo" parameterType="com.wxad.silence.domain.UpdateInfo">
+		<selectKey resultType="java.lang.Integer" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into update
+		(pushId,version,url,hash)
+		values
+		(#{pushId,jdbcType=VARCHAR},
+		#{version,jdbcType=VARCHAR},
+		#{url,jdbcType=VARCHAR},
+		#{hash,jdbcType=VARCHAR})
+	</insert>
+
+	<sql id="Base_Column_List">
+		id,pushId,version,url,hash
+	</sql>
+
+	<select id="selectAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from update
+	</select>
+
+	<select id="getByPushId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from update where id=#{pushId}
+	</select>
+
+	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from update where id=#{id}
+	</select>
+</mapper>
