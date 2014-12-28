@@ -47,6 +47,7 @@
             if(sut==SystemUserType.ADMIN) {%>
                 <%} %>
               <li class="${_activesilenceInfo}"><a href="${basePath}silenceInfo/list">销量统计</a></li>
+              <li class="${_activePush}"><a href="${basePath}pushRule/list">push规则</a></li>
               <li class="${_activeSystem}"><a href="${basePath}sysuser/index">系统</a></li>
             </ul>
           </div><!--/.nav-collapse -->

@@ -63,7 +63,7 @@ public class RegisterInfoController{
 			registerInfo.setIsRoot(registerInfoObject.get("isRoot").toString());
 			registerInfo.setDatetime(Utils.getDateTime());
 			
-			registerInfoService.insertResiterInfo(registerInfo);
+			registerInfoService.save(registerInfo);
 
 			return Utils.responseCode(Boolean.TRUE);
 		}catch(Exception e){
@@ -71,4 +71,5 @@ public class RegisterInfoController{
 			return Utils.responseCode(Boolean.FALSE);
 		}
 	}
+	
 }

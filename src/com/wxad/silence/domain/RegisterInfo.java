@@ -5,7 +5,7 @@ package com.wxad.silence.domain;
  * @author xuzhenqin
  *
  */
-public class RegisterInfo extends RemarkId {
+public class RegisterInfo extends Id {
 	
 	/**
 	 * uuid

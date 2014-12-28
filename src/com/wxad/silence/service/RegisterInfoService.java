@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.wxad.silence.domain.RegisterInfo;
 import com.wxad.silence.persistence.RegisterInfoMapper;
+import com.wxad.silence.persistence.SysUserMapper;
 
 /**
  * 系统用户数据操作服务类
@@ -17,13 +18,10 @@ public class RegisterInfoService  extends SimpleCacheSupportService<RegisterInfo
 	
 	@Resource
 	private RegisterInfoMapper registerInfoMapper;
-	
-	public int insertResiterInfo(RegisterInfo registerInfo){
-		return registerInfoMapper.insertResiterInfo(registerInfo);
-	}
-
-	public RegisterInfo getById(String id) {
-		return registerInfoMapper.getById(id);
+	@Autowired
+	public void setRegisterInfoMapper(RegisterInfoMapper registerInfoMapper) {
+		this.mapper = registerInfoMapper;
+		this.registerInfoMapper=registerInfoMapper;
 	}
 	
 	public RegisterInfo getByUuid(String uuid) {

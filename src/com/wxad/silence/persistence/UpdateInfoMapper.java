@@ -1,7 +1,5 @@
 package com.wxad.silence.persistence;
 
-import com.wxad.silence.domain.PushRuleInfo;
-import com.wxad.silence.domain.RegisterInfo;
 import com.wxad.silence.domain.UpdateInfo;
 
 /**

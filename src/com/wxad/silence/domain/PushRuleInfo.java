@@ -1,17 +1,23 @@
 package com.wxad.silence.domain;
 
+import java.util.Set;
+
+import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
+import com.google.common.base.Strings;
+import com.google.common.collect.Sets;
+
 /**
  * 下发业务条件信息
  * @author xuzhenqin
  *
  */
-public class PushRuleInfo extends RemarkId {
-	private String pushId;
+public class PushRuleInfo extends Id {
 	private int apkNum;
 	private String pushUrl;
 	private String deviceUrl;
 	private String requestRate;
-	private String country;
+	private Set<String> country;
 	private String size;
 	private String ram;
 	private String channel;
@@ -24,21 +30,7 @@ public class PushRuleInfo extends RemarkId {
 	private String hasSim;
 	private String isRoot;
 	private String hardware;
-	
-	/**
-	 * 获得业务ID
-	 * @return
-	 */
-	public String getPushId() {
-		return pushId;
-	}
-	
-	/**
-	 * 设置业务ID
-	 */
-	public void setPushId(String pushId) {
-		this.pushId = pushId;
-	}
+	private int isMatching;
 	
 	/**
 	 * 获得安装个数
@@ -98,21 +90,6 @@ public class PushRuleInfo extends RemarkId {
 	 */
 	public void setRequestRate(String requestRate) {
 		this.requestRate = requestRate;
-	}
-	
-	/**
-	 * 获得国家
-	 * @return
-	 */
-	public String getCountry() {
-		return country;
-	}
-	
-	/**
-	 * 设置国家
-	 */
-	public void setCountry(String country) {
-		this.country = country;
 	}
 	
 	/**
@@ -294,4 +271,38 @@ public class PushRuleInfo extends RemarkId {
 	public void setHardware(String hardware) {
 		this.hardware = hardware;
 	}
+	/**
+	 * 获取是否需要配置参数值的
+	 * @return
+	 */
+	public int getIsMatching() {
+		return isMatching;
+	}
+	/**
+	 * 设置是否需要配置参数值的
+	 * @param isMatching
+	 */
+	public void setIsMatching(int isMatching) {
+		this.isMatching = isMatching;
+	}
+	 public String getCountry() {
+	        if(country==null || country.isEmpty()){
+	            return "";
+	        }
+	        return Joiner.on(",").skipNulls().join(country);
+	    }
+
+	    public void setCountry(String country) {
+	        if(Strings.isNullOrEmpty(country)){
+	            return;
+	        }
+	        this.country = Sets.newHashSet(Splitter.on(",").omitEmptyStrings().trimResults().split(country));
+	    }
+
+	    public Set<String> getCountriesObject(){
+	        return this.country;
+	    }
+	    public void setCountriesObject(Set<String> country){
+	        this.country = country;
+	    }
 }

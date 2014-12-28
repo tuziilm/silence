@@ -1,9 +1,9 @@
 package com.wxad.silence.persistence;
 
+import java.util.List;
+
 import com.wxad.silence.common.Paginator;
 import com.wxad.silence.domain.Id;
-
-import java.util.List;
 
 /**
  * ibatis操作表的Mapper基础接口

@@ -9,9 +9,6 @@ import com.wxad.silence.domain.RegisterInfo;
  */
 public interface RegisterInfoMapper extends BaseMapper<RegisterInfo>{
 	
-	int insertResiterInfo(RegisterInfo registerInfo);
-
 	RegisterInfo getByUuid(String uuid);
 	
-	RegisterInfo getById(String id);
 }

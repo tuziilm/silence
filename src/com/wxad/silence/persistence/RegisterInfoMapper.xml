@@ -24,7 +24,7 @@
 		<result column="isRoot" property="country" jdbcType="VARCHAR" />
 	</resultMap>
 
-	<insert id="insertResiterInfo" parameterType="com.wxad.silence.domain.RegisterInfo">
+	<insert id="insert" parameterType="com.wxad.silence.domain.RegisterInfo">
 		<selectKey resultType="java.lang.Integer" keyProperty="id"
 			order="AFTER">
 			SELECT LAST_INSERT_ID()
@@ -68,12 +68,18 @@
 	<select id="getByUuid" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
-		from registeredinfo where id=#{uuid}
+		from registeredinfo where uuid=#{uuid}
 	</select>
 
-	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from registeredinfo where id=#{id}
 	</select>
+	<select id="select" resultMap="BaseResultMap" parameterType="com.wxad.silence.common.Paginator" >
+        select
+        <include refid="Base_Column_List" />
+        from registeredinfo
+        order by id desc  limit #{start},#{sqlSize}
+    </select>
 </mapper>

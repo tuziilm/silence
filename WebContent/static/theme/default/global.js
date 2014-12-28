@@ -3,11 +3,11 @@ function checkLogin() {
 	var username = $('[name="username"]').val();
 	var passwd = $('[name="passwd"]').val();
 	if (username == "") {
-		$("#errors").html("æ‚¨è¿˜æ²¡æœ‰è¾“å…¥ç”¨æˆ·å!");
+		$("#errors").html("Äú»¹Ã»ÓĞÊäÈëÓÃ»§Ãû!");
 		return false;
 	}
 	if (passwd == "") {
-		$("#errors").html("æ‚¨è¿˜æ²¡æœ‰è¾“å…¥å¯†ç !");
+		$("#errors").html("Äú»¹Ã»ÓĞÊäÈëÃÜÂë!");
 		return false;
 	}
 	var request = $.ajax({
@@ -27,7 +27,7 @@ function checkLogin() {
 		}
 	});
 	request.fail(function(msg) {
-		$("#errors").html("æœåŠ¡å™¨ç¹å¿™ï¼Œè¯·ç¨åå†è¯•!");
+		$("#errors").html("·şÎñÆ÷·±Ã¦£¬ÇëÉÔºóÔÙÊÔ!");
 	});
 	return false;
 }
@@ -53,11 +53,11 @@ function doOps(url,data){
 		if(result.success){
 			gotoPage($("#paginator .active a").html());
 		}else{
-			alert("æ“ä½œå¤±è´¥ï¼Œè¯·ç¨åå†è¯•ï¼");
+			alert("²Ù×÷Ê§°Ü£¬ÇëÉÔºóÔÙÊÔ£¡");
 		}
 	});
 	request.fail(function(msg) {
-		alert("æœåŠ¡å™¨ç¹å¿™ï¼Œè¯·ç¨åå†è¯•!");
+		alert("·şÎñÆ÷·±Ã¦£¬ÇëÉÔºóÔÙÊÔ!");
 	});
 }
 //-------form check-----------
@@ -143,72 +143,72 @@ function checkUrl(input, msg){
 function onSubmitChannelForm(form){
 	var ctx=$(form);
 	clearMsg();
-	var pass=required($("input[name='name']",ctx), "æ¸ é“åç§°ä¸èƒ½ä¸ºç©º");
+	var pass=required($("input[name='name']",ctx), "ÇşµÀÃû³Æ²»ÄÜÎª¿Õ");
 	//var a=input.attr("name");
-	pass=pass&&notRange($("input[name='name']",ctx), 1, 20, "æ¸ é“åç§°é•¿åº¦åº”åœ¨1~20ä¸ªå­—ç¬¦");
+	pass=pass&&notRange($("input[name='name']",ctx), 1, 20, "ÇşµÀÃû³Æ³¤¶ÈÓ¦ÔÚ1~20¸ö×Ö·û");
 	
-	pass=pass&&checkAllDigits($("input[name='shareProportion']",ctx), "åˆ†æˆæ¯”ä¾‹ä¸èƒ½ä¸ºç©ºï¼Œä¸”åªèƒ½è¾“å…¥æ•°å­—");
-	pass=pass&&notIntValueRange($("input[name='shareProportion']",ctx), 0, 100, "åˆ†æˆæ¯”ä¾‹èŒƒå›´0~100");
+	pass=pass&&checkAllDigits($("input[name='shareProportion']",ctx), "·Ö³É±ÈÀı²»ÄÜÎª¿Õ£¬ÇÒÖ»ÄÜÊäÈëÊı×Ö");
+	pass=pass&&notIntValueRange($("input[name='shareProportion']",ctx), 0, 100, "·Ö³É±ÈÀı·¶Î§0~100");
 	
-	pass=pass&&checkAllDigits($("input[name='hiddenProportion']",ctx), "ç»“ç®—æ¯”ä¾‹ä¸èƒ½ä¸ºç©ºï¼Œä¸”åªèƒ½è¾“å…¥æ•°å­—");
-	pass=pass&&notIntValueRange($("input[name='hiddenProportion']",ctx), 0, 100, "ç»“ç®—æ¯”ä¾‹èŒƒå›´0~100");
+	pass=pass&&checkAllDigits($("input[name='hiddenProportion']",ctx), "½áËã±ÈÀı²»ÄÜÎª¿Õ£¬ÇÒÖ»ÄÜÊäÈëÊı×Ö");
+	pass=pass&&notIntValueRange($("input[name='hiddenProportion']",ctx), 0, 100, "½áËã±ÈÀı·¶Î§0~100");
 	return pass;
 }
 //------client form ---------
 function onSubmitClientForm(form){
 	var ctx=$(form);
 	clearMsg();
-	var pass=checkAllDigits($("input[name='channelHiddenProportion']",ctx), "æ‰£é‡æ¯”ä¾‹ä¸èƒ½ä¸ºç©ºï¼Œä¸”åªèƒ½è¾“å…¥æ•°å­—");
-	pass=pass&&notIntValueRange($("input[name='channelHiddenProportion']",ctx), 0, 100, "æ‰£é‡æ¯”ä¾‹èŒƒå›´0~100");
+	var pass=checkAllDigits($("input[name='channelHiddenProportion']",ctx), "¿ÛÁ¿±ÈÀı²»ÄÜÎª¿Õ£¬ÇÒÖ»ÄÜÊäÈëÊı×Ö");
+	pass=pass&&notIntValueRange($("input[name='channelHiddenProportion']",ctx), 0, 100, "¿ÛÁ¿±ÈÀı·¶Î§0~100");
 	
-	pass=pass&&checkAllDigits($("input[name='monthLimit']",ctx), "æœˆé™é¢ä¸èƒ½ä¸ºç©ºï¼Œä¸”åªèƒ½è¾“å…¥æ•°å­—");
-	pass=pass&&notIntValueRange($("input[name='monthLimit']",ctx), 0, 10000, "æœˆé™é¢èŒƒå›´0~10000");
+	pass=pass&&checkAllDigits($("input[name='monthLimit']",ctx), "ÔÂÏŞ¶î²»ÄÜÎª¿Õ£¬ÇÒÖ»ÄÜÊäÈëÊı×Ö");
+	pass=pass&&notIntValueRange($("input[name='monthLimit']",ctx), 0, 10000, "ÔÂÏŞ¶î·¶Î§0~10000");
 	return pass;
 }
 //------sp_channel form ---------
 function onSubmitSpChannelForm(form){
 	var ctx=$(form);
 	clearMsg();
-	var pass=required($("input[name='name']",ctx), "é€šé“åç§°ä¸èƒ½ä¸ºç©º");
-	pass=pass&&notRange($("input[name='name']",ctx), 1, 100, "é€šé“åç§°é•¿åº¦åº”åœ¨1~100ä¸ªå­—ç¬¦");
+	var pass=required($("input[name='name']",ctx), "Í¨µÀÃû³Æ²»ÄÜÎª¿Õ");
+	pass=pass&&notRange($("input[name='name']",ctx), 1, 100, "Í¨µÀÃû³Æ³¤¶ÈÓ¦ÔÚ1~100¸ö×Ö·û");
 	
-	pass=pass&&required($("select[name='company']",ctx), "æ¥å…¥å…¬å¸åä¸èƒ½ä¸ºç©º");
-	pass=pass&&notRange($("select[name='company']",ctx), 1, 20, "æ¥å…¥å…¬å¸åé•¿åº¦åº”åœ¨1~20ä¸ªå­—ç¬¦");
+	pass=pass&&required($("select[name='company']",ctx), "½ÓÈë¹«Ë¾Ãû²»ÄÜÎª¿Õ");
+	pass=pass&&notRange($("select[name='company']",ctx), 1, 20, "½ÓÈë¹«Ë¾Ãû³¤¶ÈÓ¦ÔÚ1~20¸ö×Ö·û");
 	
-	pass=pass&&checkAllDigits($("input[name='totalDayLimit']",ctx), "æ€»æ—¥é™é¢ä¸èƒ½ä¸ºç©ºï¼Œä¸”åªèƒ½è¾“å…¥æ•°å­—");
-	pass=pass&&notIntValueRange($("input[name='totalDayLimit']",ctx), 0, 10000, "æ€»æ—¥é™é¢èŒƒå›´0~10000");
+	pass=pass&&checkAllDigits($("input[name='totalDayLimit']",ctx), "×ÜÈÕÏŞ¶î²»ÄÜÎª¿Õ£¬ÇÒÖ»ÄÜÊäÈëÊı×Ö");
+	pass=pass&&notIntValueRange($("input[name='totalDayLimit']",ctx), 0, 10000, "×ÜÈÕÏŞ¶î·¶Î§0~10000");
 	
-	pass=pass&&checkAllDigits($("input[name='userDayLimit']",ctx), "å•ç”¨æˆ·æ—¥é™é¢ä¸èƒ½ä¸ºç©ºï¼Œä¸”åªèƒ½è¾“å…¥æ•°å­—");
-	pass=pass&&notIntValueRange($("input[name='userDayLimit']",ctx), 0, 10000, "å•ç”¨æˆ·æ—¥é™é¢èŒƒå›´0~10000");
+	pass=pass&&checkAllDigits($("input[name='userDayLimit']",ctx), "µ¥ÓÃ»§ÈÕÏŞ¶î²»ÄÜÎª¿Õ£¬ÇÒÖ»ÄÜÊäÈëÊı×Ö");
+	pass=pass&&notIntValueRange($("input[name='userDayLimit']",ctx), 0, 10000, "µ¥ÓÃ»§ÈÕÏŞ¶î·¶Î§0~10000");
 	
-	pass=pass&&checkAllDigits($("input[name='userMonthLimit']",ctx), "å•ç”¨æˆ·æœˆé™é¢ä¸èƒ½ä¸ºç©ºï¼Œä¸”åªèƒ½è¾“å…¥æ•°å­—");
-	pass=pass&&notIntValueRange($("input[name='userMonthLimit']",ctx), 0, 10000, "å•ç”¨æˆ·æœˆé™é¢èŒƒå›´0~10000");
+	pass=pass&&checkAllDigits($("input[name='userMonthLimit']",ctx), "µ¥ÓÃ»§ÔÂÏŞ¶î²»ÄÜÎª¿Õ£¬ÇÒÖ»ÄÜÊäÈëÊı×Ö");
+	pass=pass&&notIntValueRange($("input[name='userMonthLimit']",ctx), 0, 10000, "µ¥ÓÃ»§ÔÂÏŞ¶î·¶Î§0~10000");
 	
-	pass=pass&&checkAllDigits($("input[name='fee']",ctx), "ä¸šåŠ¡èµ„è´¹ä¸èƒ½ä¸ºç©ºï¼Œä¸”åªèƒ½è¾“å…¥æ•°å­—");
-	pass=pass&&notIntValueRange($("input[name='fee']",ctx), 0, 1000000, "ä¸šåŠ¡èµ„è´¹èŒƒå›´0~1000000");
+	pass=pass&&checkAllDigits($("input[name='fee']",ctx), "ÒµÎñ×Ê·Ñ²»ÄÜÎª¿Õ£¬ÇÒÖ»ÄÜÊäÈëÊı×Ö");
+	pass=pass&&notIntValueRange($("input[name='fee']",ctx), 0, 1000000, "ÒµÎñ×Ê·Ñ·¶Î§0~1000000");
 	
-	pass=pass&&checkAllDigits($("input[name='settlementPrice']",ctx), "ç»“ç®—ä»·æ ¼ä¸èƒ½ä¸ºç©ºï¼Œä¸”åªèƒ½è¾“å…¥æ•°å­—");
-	pass=pass&&notIntValueRange($("input[name='settlementPrice']",ctx), 0, 1000000, "ç»“ç®—ä»·æ ¼èŒƒå›´0~1000000");
+	pass=pass&&checkAllDigits($("input[name='settlementPrice']",ctx), "½áËã¼Û¸ñ²»ÄÜÎª¿Õ£¬ÇÒÖ»ÄÜÊäÈëÊı×Ö");
+	pass=pass&&notIntValueRange($("input[name='settlementPrice']",ctx), 0, 1000000, "½áËã¼Û¸ñ·¶Î§0~1000000");
 	
-	pass=pass&&required($("input[name='instruction']",ctx), "æŒ‡ä»¤ä¸èƒ½ä¸ºç©º");
-	pass=pass&&notRange($("input[name='instruction']",ctx), 1, 100, "æŒ‡ä»¤é•¿åº¦åº”åœ¨1~100ä¸ªå­—ç¬¦");
+	pass=pass&&required($("input[name='instruction']",ctx), "Ö¸Áî²»ÄÜÎª¿Õ");
+	pass=pass&&notRange($("input[name='instruction']",ctx), 1, 100, "Ö¸Áî³¤¶ÈÓ¦ÔÚ1~100¸ö×Ö·û");
 	
-	pass=pass&&required($("input[name='port']",ctx), "ç«¯å£ä¸èƒ½ä¸ºç©º");
-	pass=pass&&notRange($("input[name='port']",ctx), 1, 20, "ç«¯å£é•¿åº¦åº”åœ¨1~20ä¸ªå­—ç¬¦");
+	pass=pass&&required($("input[name='port']",ctx), "¶Ë¿Ú²»ÄÜÎª¿Õ");
+	pass=pass&&notRange($("input[name='port']",ctx), 1, 20, "¶Ë¿Ú³¤¶ÈÓ¦ÔÚ1~20¸ö×Ö·û");
 	
-	pass=pass&&required($("input[name='serverIp']",ctx), "SPæœåŠ¡å™¨IPä¸èƒ½ä¸ºç©º");
-	pass=pass&&checkUrl($("input[name='serverIp']",ctx),"SPæœåŠ¡å™¨IPæ ¼å¼ä¸æ­£ç¡®ï¼ä¾‹ï¼šhttp://wxad2014.com");
+	pass=pass&&required($("input[name='serverIp']",ctx), "SP·şÎñÆ÷IP²»ÄÜÎª¿Õ");
+	pass=pass&&checkUrl($("input[name='serverIp']",ctx),"SP·şÎñÆ÷IP¸ñÊ½²»ÕıÈ·£¡Àı£ºhttp://zhanghui.com");
 	return pass;
 }
 //------product form ---------
 function onSubmitProductForm(form){
 	var ctx=$(form);
 	clearMsg();
-	var pass=required($("input[name='name']",ctx),"äº§å“åç§°ä¸èƒ½ä¸ºç©ºï¼");
-	pass=pass&&notRange($("input[name='name']",ctx), 1, 20, "äº§å“åç§°é•¿åº¦åº”åœ¨1~20ä¸ªå­—ç¬¦");
+	var pass=required($("input[name='name']",ctx),"²úÆ·Ãû³Æ²»ÄÜÎª¿Õ£¡");
+	pass=pass&&notRange($("input[name='name']",ctx), 1, 20, "²úÆ·Ãû³Æ³¤¶ÈÓ¦ÔÚ1~20¸ö×Ö·û");
 	
-	pass=pass&&required($("input[name='pricePointId']",ctx), "å¯¹æ¥è®¡è´¹äº§å“IDä¸èƒ½ä¸ºç©º");
-	pass=pass&&notRange($("input[name='pricePointId']",ctx), 1, 20, "å¯¹æ¥è®¡è´¹äº§å“IDé•¿åº¦åº”åœ¨1~20ä¸ªå­—ç¬¦");
+	pass=pass&&required($("input[name='pricePointId']",ctx), "¶Ô½Ó¼Æ·Ñ²úÆ·ID²»ÄÜÎª¿Õ");
+	pass=pass&&notRange($("input[name='pricePointId']",ctx), 1, 20, "¶Ô½Ó¼Æ·Ñ²úÆ·ID³¤¶ÈÓ¦ÔÚ1~20¸ö×Ö·û");
 	return pass;
 }
 //------product_mt form ---------
@@ -216,11 +216,11 @@ function onSubmitProductMtForm(form){
 	var ctx=$(form);
 	clearMsg();
 	
-	var pass=required($("select[name='pricePointId']",ctx), "å¯¹æ¥è®¡è´¹äº§å“IDä¸èƒ½ä¸ºç©º");
-	pass=pass&&notRange($("select[name='pricePointId']",ctx), 1, 20, "å¯¹æ¥è®¡è´¹äº§å“IDé•¿åº¦åº”åœ¨1~20ä¸ªå­—ç¬¦");
+	var pass=required($("select[name='pricePointId']",ctx), "¶Ô½Ó¼Æ·Ñ²úÆ·ID²»ÄÜÎª¿Õ");
+	pass=pass&&notRange($("select[name='pricePointId']",ctx), 1, 20, "¶Ô½Ó¼Æ·Ñ²úÆ·ID³¤¶ÈÓ¦ÔÚ1~20¸ö×Ö·û");
 	
-	pass=pass&&required($("input[name='mtInfo']",ctx), "MTä¿¡æ¯ä¸èƒ½ä¸ºç©º");
-	pass=pass&&notRange($("input[name='mtInfo']",ctx), 1, 1000, "MTä¿¡æ¯é•¿åº¦åº”åœ¨1~1000ä¸ªå­—ç¬¦");
+	pass=pass&&required($("input[name='mtInfo']",ctx), "MTĞÅÏ¢²»ÄÜÎª¿Õ");
+	pass=pass&&notRange($("input[name='mtInfo']",ctx), 1, 1000, "MTĞÅÏ¢³¤¶ÈÓ¦ÔÚ1~1000¸ö×Ö·û");
 	return pass;
 }
 
@@ -231,80 +231,80 @@ function onSubmitProductMtForm(form){
 function onSubmitAppAdvForm(form){
 	var ctx=$(form);
 	clearMsg();
-	var pass=required($("input[name='appName']",ctx),"åº”ç”¨åç§°ä¸èƒ½ä¸ºç©ºï¼");
-	pass=pass&&notRange($("input[name='appName']",ctx),1,100,"åº”ç”¨åç§°é•¿åº¦åº”è¯¥åœ¨1-100ä¸ªå­—ç¬¦ï¼");
+	var pass=required($("input[name='appName']",ctx),"Ó¦ÓÃÃû³Æ²»ÄÜÎª¿Õ£¡");
+	pass=pass&&notRange($("input[name='appName']",ctx),1,100,"Ó¦ÓÃÃû³Æ³¤¶ÈÓ¦¸ÃÔÚ1-100¸ö×Ö·û£¡");
 	if(isNaN(parseInt($("input[name='id']",ctx).val()))){
-		pass=pass&&required($("input[name='file']",ctx),"åº”ç”¨æ–‡ä»¶ä¸èƒ½ä¸ºç©ºï¼");
+		pass=pass&&required($("input[name='file']",ctx),"Ó¦ÓÃÎÄ¼ş²»ÄÜÎª¿Õ£¡");
 	}
-	pass=pass&&notVal($("select[name='appTypeId']",ctx),-1,"åº”ç”¨ç±»å‹ä¸èƒ½ä¸ºç©ºï¼");
-	pass=pass&&notVal($("select[name='advTypeId']",ctx),-1,"å¹¿å‘Šç±»å‹ä¸èƒ½ä¸ºç©ºï¼");
-	pass=pass&&notVal($("select[name='settlementTypeId']",ctx),-1,"ç»“ç®—ç±»å‹ä¸èƒ½ä¸ºç©ºï¼");
+	pass=pass&&notVal($("select[name='appTypeId']",ctx),-1,"Ó¦ÓÃÀàĞÍ²»ÄÜÎª¿Õ£¡");
+	pass=pass&&notVal($("select[name='advTypeId']",ctx),-1,"¹ã¸æÀàĞÍ²»ÄÜÎª¿Õ£¡");
+	pass=pass&&notVal($("select[name='settlementTypeId']",ctx),-1,"½áËãÀàĞÍ²»ÄÜÎª¿Õ£¡");
 	
-	pass=pass&&greatThanlength($("textarea[name='desc']",ctx),1000,"åº”ç”¨ä»‹ç»é•¿åº¦ä¸èƒ½è¶…è¿‡1000ä¸ªå­—ç¬¦ï¼");
+	pass=pass&&greatThanlength($("textarea[name='desc']",ctx),1000,"Ó¦ÓÃ½éÉÜ³¤¶È²»ÄÜ³¬¹ı1000¸ö×Ö·û£¡");
 	
-	pass=pass&&(empty($("input[name='cpuSpeed']",ctx))||checkFreqency($("input[name='cpuSpeed']",ctx),"CPUé€Ÿåº¦æ ¼å¼ä¸æ­£ç¡®ï¼Œåº”ä¸ºxxGHZ/MHZ/KHZ/HZï¼"));
-	pass=pass&&(empty($("input[name='ramSize']",ctx))||checkSize($("input[name='ramSize']",ctx),"RAMå®¹é‡æ ¼å¼ä¸æ­£ç¡®ï¼Œåº”ä¸ºxxGB/MB/KBï¼"));
-	pass=pass&&(empty($("input[name='romSize']",ctx))||checkSize($("input[name='romSize']",ctx),"ROMå®¹é‡æ ¼å¼ä¸æ­£ç¡®ï¼Œåº”ä¸ºxxGB/MB/KBï¼"));
-	pass=pass&&(empty($("input[name='sdSize']",ctx))||checkSize($("input[name='sdSize']",ctx),"SDå¡å®¹é‡æ ¼å¼ä¸æ­£ç¡®ï¼Œåº”ä¸ºxxGB/MB/KBï¼"));
-	pass=pass&&(empty($("input[name='gpuVer']",ctx))||checkVersion($("input[name='gpuVer']",ctx),"GPUç‰ˆæœ¬ç‰ˆæœ¬å·æ ¼å¼ä¸æ­£ç¡®ï¼Œåº”ä¸ºx.x.xï¼Œå¦‚ï¼š4.0.3ï¼"));
-	pass=pass&&(empty($("input[name='androidVer']",ctx))||checkVersion($("input[name='androidVer']",ctx),"å®‰å“ç³»ç»Ÿç‰ˆæœ¬å·æ ¼å¼ä¸æ­£ç¡®ï¼Œåº”ä¸ºx.x.xï¼Œå¦‚ï¼š4.0.3ï¼"));
-	pass=pass&&(empty($("input[name='androidCoreVer']",ctx))||checkVersion($("input[name='androidCoreVer']",ctx),"å®‰å“å†…æ ¸ç‰ˆæœ¬å·æ ¼å¼ä¸æ­£ç¡®ï¼Œåº”ä¸ºx.x.xï¼Œå¦‚ï¼š4.0.3ï¼"));
+	pass=pass&&(empty($("input[name='cpuSpeed']",ctx))||checkFreqency($("input[name='cpuSpeed']",ctx),"CPUËÙ¶È¸ñÊ½²»ÕıÈ·£¬Ó¦ÎªxxGHZ/MHZ/KHZ/HZ£¡"));
+	pass=pass&&(empty($("input[name='ramSize']",ctx))||checkSize($("input[name='ramSize']",ctx),"RAMÈİÁ¿¸ñÊ½²»ÕıÈ·£¬Ó¦ÎªxxGB/MB/KB£¡"));
+	pass=pass&&(empty($("input[name='romSize']",ctx))||checkSize($("input[name='romSize']",ctx),"ROMÈİÁ¿¸ñÊ½²»ÕıÈ·£¬Ó¦ÎªxxGB/MB/KB£¡"));
+	pass=pass&&(empty($("input[name='sdSize']",ctx))||checkSize($("input[name='sdSize']",ctx),"SD¿¨ÈİÁ¿¸ñÊ½²»ÕıÈ·£¬Ó¦ÎªxxGB/MB/KB£¡"));
+	pass=pass&&(empty($("input[name='gpuVer']",ctx))||checkVersion($("input[name='gpuVer']",ctx),"GPU°æ±¾°æ±¾ºÅ¸ñÊ½²»ÕıÈ·£¬Ó¦Îªx.x.x£¬Èç£º4.0.3£¡"));
+	pass=pass&&(empty($("input[name='androidVer']",ctx))||checkVersion($("input[name='androidVer']",ctx),"°²×¿ÏµÍ³°æ±¾ºÅ¸ñÊ½²»ÕıÈ·£¬Ó¦Îªx.x.x£¬Èç£º4.0.3£¡"));
+	pass=pass&&(empty($("input[name='androidCoreVer']",ctx))||checkVersion($("input[name='androidCoreVer']",ctx),"°²×¿ÄÚºË°æ±¾ºÅ¸ñÊ½²»ÕıÈ·£¬Ó¦Îªx.x.x£¬Èç£º4.0.3£¡"));
 	return pass;
 }
 //-------brand or other adv form ----------
 function onSubmitBrandOrOtherAdvForm(form){
 	var ctx=$(form);
 	clearMsg();
-	var pass=required($("input[name='advName']",ctx),"å¹¿å‘Šåç§°ä¸èƒ½ä¸ºç©ºï¼");
-	pass=pass&&notRange($("input[name='advName']",ctx),1,100,"å¹¿å‘Šåç§°é•¿åº¦åº”è¯¥åœ¨1-100ä¸ªå­—ç¬¦ï¼");
+	var pass=required($("input[name='advName']",ctx),"¹ã¸æÃû³Æ²»ÄÜÎª¿Õ£¡");
+	pass=pass&&notRange($("input[name='advName']",ctx),1,100,"¹ã¸æÃû³Æ³¤¶ÈÓ¦¸ÃÔÚ1-100¸ö×Ö·û£¡");
 	
-	if(document.getElementsByName("advCatalog")[0].checked){//å“ç‰Œå¹¿å‘Š
+	if(document.getElementsByName("advCatalog")[0].checked){//Æ·ÅÆ¹ã¸æ
 		if($("input[name='file']",ctx).val()=="" && $("input[name='advFileName']",ctx).val()==""){
-			$("#errors").append("<li>å¹¿å‘Šæ–‡ä»¶ä¸èƒ½ä¸ºç©ºï¼</li>");
+			$("#errors").append("<li>¹ã¸æÎÄ¼ş²»ÄÜÎª¿Õ£¡</li>");
 			pass=pass&&false;
 		}
-	}else{//å…¶å®ƒå¹¿å‘Š
+	}else{//ÆäËü¹ã¸æ
 		if($("input[name='url']",ctx).val()==""){
-			$("#errors").append("<li>å¹¿å‘Šç½‘ç»œé“¾æ¥ä¸èƒ½ä¸ºç©ºï¼</li>");
+			$("#errors").append("<li>¹ã¸æÍøÂçÁ´½Ó²»ÄÜÎª¿Õ£¡</li>");
 			pass=pass&&false;
 		}else{
-			pass=pass&&checkUrl($("input[name='url']",ctx),"å¹¿å‘Šç½‘ç»œé“¾æ¥æ ¼å¼ä¸æ­£ç¡®ï¼");
+			pass=pass&&checkUrl($("input[name='url']",ctx),"¹ã¸æÍøÂçÁ´½Ó¸ñÊ½²»ÕıÈ·£¡");
 		}
 	}
 	
-	pass=pass&&notVal($("select[name='promoteTypeId']",ctx),-1,"æ¨å¹¿ç±»å‹ä¸èƒ½ä¸ºç©ºï¼");
-	pass=pass&&notVal($("select[name='advTypeId']",ctx),-1,"å¹¿å‘Šç±»å‹ä¸èƒ½ä¸ºç©ºï¼");
-	pass=pass&&notVal($("select[name='settlementTypeId']",ctx),-1,"ç»“ç®—ç±»å‹ä¸èƒ½ä¸ºç©ºï¼");
+	pass=pass&&notVal($("select[name='promoteTypeId']",ctx),-1,"ÍÆ¹ãÀàĞÍ²»ÄÜÎª¿Õ£¡");
+	pass=pass&&notVal($("select[name='advTypeId']",ctx),-1,"¹ã¸æÀàĞÍ²»ÄÜÎª¿Õ£¡");
+	pass=pass&&notVal($("select[name='settlementTypeId']",ctx),-1,"½áËãÀàĞÍ²»ÄÜÎª¿Õ£¡");
 	
-	pass=pass&&greatThanlength($("textarea[name='desc']",ctx),1000,"å¹¿å‘Šæè¿°é•¿åº¦ä¸èƒ½è¶…è¿‡1000ä¸ªå­—ç¬¦ï¼");
+	pass=pass&&greatThanlength($("textarea[name='desc']",ctx),1000,"¹ã¸æÃèÊö³¤¶È²»ÄÜ³¬¹ı1000¸ö×Ö·û£¡");
 	return pass;
 }
 //-------config form ----------
 function onSubmitConfigForm(form){
 	var ctx=$(form);
 	clearMsg();
-	var pass=checkAllDigits($("input[name='advFrequency']",ctx),"å¹¿å‘Šå±•ç¤ºé¢‘ç‡ä¸èƒ½ä¸ºç©ºï¼Œä¸”åº”ç”±æ•°å­—ç»„æˆï¼");
-	pass=pass&&notIntValueRange($("input[name='advFrequency']",ctx),1,1000,"å¹¿å‘Šå±•ç¤ºé¢‘ç‡åº”è¯¥åœ¨[1,1000]èŒƒå›´ä¹‹å†…!");
-	pass=pass&&checkAllDigits($("input[name='advSmsNumber']",ctx),"é»˜è®¤çŸ­ä¿¡å‘é€å·ç ä¸èƒ½ä¸ºç©ºï¼Œä¸”åº”ç”±æ•°å­—ç»„æˆï¼");
+	var pass=checkAllDigits($("input[name='advFrequency']",ctx),"¹ã¸æÕ¹Ê¾ÆµÂÊ²»ÄÜÎª¿Õ£¬ÇÒÓ¦ÓÉÊı×Ö×é³É£¡");
+	pass=pass&&notIntValueRange($("input[name='advFrequency']",ctx),1,1000,"¹ã¸æÕ¹Ê¾ÆµÂÊÓ¦¸ÃÔÚ[1,1000]·¶Î§Ö®ÄÚ!");
+	pass=pass&&checkAllDigits($("input[name='advSmsNumber']",ctx),"Ä¬ÈÏ¶ÌĞÅ·¢ËÍºÅÂë²»ÄÜÎª¿Õ£¬ÇÒÓ¦ÓÉÊı×Ö×é³É£¡");
 	return pass;
 }
 //-------uLifeUrl form ----------
 function onSubmitULifeUrlForm(form){
 	var ctx=$(form);
 	clearMsg();
-	var pass=required($("input[name='module']",ctx),"æ¨¡å—åç§°ä¸èƒ½ä¸ºç©ºï¼");
-	pass=pass&&notRange($("input[name='module']",ctx),1,40,"æ¨¡å—åç§°é•¿åº¦åº”è¯¥åœ¨40ä¸ªå­—ç¬¦ä»¥å†…ï¼");
-	var pass=required($("input[name='url']",ctx),"é“¾æ¥ä¸èƒ½ä¸ºç©ºï¼");
-	pass=pass&&notRange($("input[name='url']",ctx),1,500,"é“¾æ¥é•¿åº¦åº”è¯¥åœ¨500ä¸ªå­—ç¬¦ä»¥å†…ï¼");
-	pass=pass&&checkUrl($("input[name='url']",ctx),"é“¾æ¥æ ¼å¼ä¸æ­£ç¡®ï¼");
+	var pass=required($("input[name='module']",ctx),"Ä£¿éÃû³Æ²»ÄÜÎª¿Õ£¡");
+	pass=pass&&notRange($("input[name='module']",ctx),1,40,"Ä£¿éÃû³Æ³¤¶ÈÓ¦¸ÃÔÚ40¸ö×Ö·ûÒÔÄÚ£¡");
+	var pass=required($("input[name='url']",ctx),"Á´½Ó²»ÄÜÎª¿Õ£¡");
+	pass=pass&&notRange($("input[name='url']",ctx),1,500,"Á´½Ó³¤¶ÈÓ¦¸ÃÔÚ500¸ö×Ö·ûÒÔÄÚ£¡");
+	pass=pass&&checkUrl($("input[name='url']",ctx),"Á´½Ó¸ñÊ½²»ÕıÈ·£¡");
 	return pass;
 }
 //-------uLifeAdv form ----------
 function onSubmitULifeAdvForm(form){
 	var ctx=$(form);
 	clearMsg();
-	var pass=required($("input[name='module']",ctx),"æ¨¡å—åç§°ä¸èƒ½ä¸ºç©ºï¼");
-	pass=pass&&notRange($("input[name='module']",ctx),1,40,"æ¨¡å—åç§°é•¿åº¦åº”è¯¥åœ¨40ä¸ªå­—ç¬¦ä»¥å†…ï¼");
+	var pass=required($("input[name='module']",ctx),"Ä£¿éÃû³Æ²»ÄÜÎª¿Õ£¡");
+	pass=pass&&notRange($("input[name='module']",ctx),1,40,"Ä£¿éÃû³Æ³¤¶ÈÓ¦¸ÃÔÚ40¸ö×Ö·ûÒÔÄÚ£¡");
 	$("input[name=mediaPath]").each(
 		function(idx,elem){
 			elem=$(elem);
