@@ -9,20 +9,47 @@
 		<result column="hash" property="hash" jdbcType="VARCHAR" />
 	</resultMap>
 
-	<insert id="insertUpdateInfo" parameterType="com.wxad.silence.domain.UpdateInfo">
+	<insert id="insert" parameterType="com.wxad.silence.domain.UpdateInfo">
 		<selectKey resultType="java.lang.Integer" keyProperty="id"
 			order="AFTER">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
-		insert into update
+		insert into updatelist
 		(pushId,version,url,hash)
 		values
-		(#{pushId,jdbcType=VARCHAR},
+		(#{pushId,jdbcType=INTEGER},
 		#{version,jdbcType=VARCHAR},
 		#{url,jdbcType=VARCHAR},
 		#{hash,jdbcType=VARCHAR})
 	</insert>
+	<delete id="deleteById">
+        delete from updatelist where id=#{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByIds">
+        delete from updatelist where id in
+        <foreach collection="array" item="ids"  open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
 
+    <update id="updateByIdSelective" parameterType="com.wxad.silence.domain.UpdateInfo">
+        update updatelist
+        <set>
+            <if test="fn.notEmpty(pushId)">
+                pushId=#{pushId,jdbcType=INTEGER},
+            </if>
+            <if test="fn.notEmpty(url)">
+                url=#{url,jdbcType=VARCHAR},
+            </if>
+            <if test="fn.notEmpty(version)">
+                version=#{version,jdbcType=VARCHAR},
+            </if>
+            <if test="fn.notEmpty(hash)">
+                hash=#{hash,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id=#{id,jdbcType=INTEGER}
+    </update>
 	<sql id="Base_Column_List">
 		id,pushId,version,url,hash
 	</sql>
@@ -30,19 +57,28 @@
 	<select id="selectAll" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
-		from update
+		from updatelist
 	</select>
 
 	<select id="getByPushId" resultMap="BaseResultMap"
-		parameterType="java.lang.String">
+		parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
-		from update where id=#{pushId}
+		from updatelist where pushId=#{pushId}
 	</select>
-
-	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-		select
-		<include refid="Base_Column_List" />
-		from update where id=#{id}
-	</select>
+    <select id="count" resultType="java.lang.Integer" parameterType="com.zhanghui.pusher.common.Paginator" >
+        select count(*)
+        from updatelist
+        <include refid="select_count_where_sql"/>
+    </select>
+    <select id="select" resultMap="BaseResultMap" parameterType="com.zhanghui.pusher.common.Paginator" >
+        select
+        <include refid="Base_Column_List" />
+        from updatelist
+        <include refid="select_count_where_sql"/>
+        order by id desc limit #{start},#{sqlSize}
+    </select>
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select <include refid="Base_Column_List"/> from updatelist where id=#{id,jdbcType=INTEGER}
+    </select>
 </mapper>

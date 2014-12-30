@@ -15,7 +15,7 @@ public class DeleteInfo extends RemarkId {
 	/**
 	 * push id
 	 */
-	private String pushId;
+	private Integer pushId;
 	
 	/**
 	 * 获得要删除的包名
@@ -37,7 +37,7 @@ public class DeleteInfo extends RemarkId {
 	 * 获得pushId
 	 * @return
 	 */
-	public String getPushId() {
+	public Integer getPushId() {
 		return pushId;
 	}
 	
@@ -45,7 +45,7 @@ public class DeleteInfo extends RemarkId {
 	 * 设置pushId
 	 * @param pushId
 	 */
-	public void setPushId(String pushId) {
+	public void setPushId(Integer pushId) {
 		this.pushId = pushId;
 	}
 }

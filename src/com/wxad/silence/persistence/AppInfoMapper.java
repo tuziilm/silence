@@ -8,10 +8,5 @@ import com.wxad.silence.domain.AppInfo;
  *
  */
 public interface AppInfoMapper extends BaseMapper<AppInfo>{
-	
-	int insertAppInfo(AppInfo appInfo);
-
-	AppInfo getByPushId(String pushId);
-	
-	AppInfo getById(String id);
+	AppInfo getByPushId(int pushId);
 }

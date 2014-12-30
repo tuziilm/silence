@@ -3,7 +3,7 @@
 <mapper namespace="com.wxad.silence.persistence.DeleteInfoMapper">
 	<resultMap id="BaseResultMap" type="com.wxad.silence.domain.DeleteInfo">
 		<id column="id" property="id" jdbcType="INTEGER" />
-		<result column="pushId" property="pushId" jdbcType="VARCHAR" />
+		<result column="pushId" property="pushId" jdbcType="INTEGER" />
 		<result column="packageName" property="packageName" jdbcType="VARCHAR" />
 	</resultMap>
 
@@ -15,10 +15,31 @@
 		insert into deletelist
 		(pushId,packageName)
 		values
-		(#{pushId,jdbcType=VARCHAR},
+		(#{pushId,jdbcType=INTEGER},
 		#{packageName,jdbcType=VARCHAR})
 	</insert>
+	<delete id="deleteById">
+        delete from deletelist where id=#{id,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByIds">
+        delete from deletelist where id in
+        <foreach collection="array" item="ids"  open="(" separator="," close=")">
+            #{ids}
+        </foreach>
+    </delete>
 
+    <update id="updateByIdSelective" parameterType="com.wxad.silence.domain.DeleteInfo">
+        update deletelist
+        <set>
+            <if test="fn.notEmpty(pushId)">
+                pushId=#{pushId,jdbcType=INTEGER},
+            </if>
+            <if test="fn.notEmpty(packageName)">
+                packageName=#{packageName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id=#{id,jdbcType=INTEGER}
+    </update>
 	<sql id="Base_Column_List">
 		id,pushId,packageName
 	</sql>
@@ -30,15 +51,24 @@
 	</select>
 
 	<select id="getByPushId" resultMap="BaseResultMap"
-		parameterType="java.lang.String">
+		parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
-		from deletelist where id=#{pushId}
+		from deletelist where pushId=#{pushId}
 	</select>
-
-	<select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-		select
-		<include refid="Base_Column_List" />
-		from deletelist where id=#{id}
-	</select>
+    <select id="count" resultType="java.lang.Integer" parameterType="com.zhanghui.pusher.common.Paginator" >
+        select count(*)
+        from deletelist
+        <include refid="select_count_where_sql"/>
+    </select>
+    <select id="select" resultMap="BaseResultMap" parameterType="com.zhanghui.pusher.common.Paginator" >
+        select
+        <include refid="Base_Column_List" />
+        from deletelist
+        <include refid="select_count_where_sql"/>
+        order by id desc limit #{start},#{sqlSize}
+    </select>
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select <include refid="Base_Column_List"/> from deletelist where id=#{id,jdbcType=INTEGER}
+    </select>
 </mapper>

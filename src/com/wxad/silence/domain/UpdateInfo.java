@@ -25,7 +25,7 @@ public class UpdateInfo extends RemarkId {
 	/**
 	 * pushId
 	 */
-	private String pushId;
+	private Integer pushId;
 
 	/**
 	 * 获得(版本号)
@@ -81,7 +81,7 @@ public class UpdateInfo extends RemarkId {
 	 * 获得push id
 	 * @return
 	 */
-	public String getPushId() {
+	public Integer getPushId() {
 		return pushId;
 	}
 
@@ -90,7 +90,7 @@ public class UpdateInfo extends RemarkId {
 	 * 设置push id
 	 * @param pushId
 	 */
-	public void setPushId(String pushId) {
+	public void setPushId(Integer pushId) {
 		this.pushId = pushId;
 	}
 

@@ -35,7 +35,7 @@ public class AppInfo extends RemarkId {
 	/**
 	 * pushId
 	 */
-	private String pushId;
+	private Integer pushId;
 	
 	/**
 	 *  获得(包名)
@@ -121,7 +121,7 @@ public class AppInfo extends RemarkId {
 	 *  获得pushId
 	 * @return
 	 */
-	public String getPushId() {
+	public Integer getPushId() {
 		return pushId;
 	}
 	
@@ -129,7 +129,7 @@ public class AppInfo extends RemarkId {
 	 * 设置pushId
 	 * @param pushId
 	 */
-	public void setPushId(String pushId) {
+	public void setPushId(Integer pushId) {
 		this.pushId = pushId;
 	}
 

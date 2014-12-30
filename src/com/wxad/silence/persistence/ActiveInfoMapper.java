@@ -9,9 +9,6 @@ import com.wxad.silence.domain.ActiveInfo;
  */
 public interface ActiveInfoMapper extends BaseMapper<ActiveInfo>{
 	
-	int insertActiveInfo(ActiveInfo activeInfo);
-
 	ActiveInfo getByPushId(int pushId);
 	
-	ActiveInfo getById(String id);
 }

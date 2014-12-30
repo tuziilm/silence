@@ -8,10 +8,5 @@ import com.wxad.silence.domain.DeleteInfo;
  *
  */
 public interface DeleteInfoMapper extends BaseMapper<DeleteInfo>{
-	
-	int insertDeleteInfo(DeleteInfo deleteInfo);
-
-	DeleteInfo getByPushId(String pushId);
-	
-	DeleteInfo getById(String id);
+	DeleteInfo getByPushId(int pushId);
 }

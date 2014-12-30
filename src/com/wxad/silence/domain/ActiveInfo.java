@@ -15,7 +15,7 @@ public class ActiveInfo extends RemarkId {
 	/**
 	 * (激活次数)
 	 */
-	private String count;
+	private int count;
 	
 	/**
 	 * (多久激活)
@@ -25,7 +25,7 @@ public class ActiveInfo extends RemarkId {
 	/**
 	 * pushId
 	 */
-	private String pushId;
+	private Integer pushId;
 	
 	/**
 	 * 设置(包名)
@@ -47,7 +47,7 @@ public class ActiveInfo extends RemarkId {
 	 * 设置(激活次数)
 	 * @return
 	 */
-	public String getCount() {
+	public int getCount() {
 		return count;
 	}
 	
@@ -55,7 +55,7 @@ public class ActiveInfo extends RemarkId {
 	 * 获得(激活次数)
 	 * @param count
 	 */
-	public void setCount(String count) {
+	public void setCount(int count) {
 		this.count = count;
 	}
 	
@@ -79,7 +79,7 @@ public class ActiveInfo extends RemarkId {
 	 * 设置pushId
 	 * @return
 	 */
-	public String getPushId() {
+	public Integer getPushId() {
 		return pushId;
 	}
 	
@@ -87,7 +87,7 @@ public class ActiveInfo extends RemarkId {
 	 * 获得
 	 * @param pushId
 	 */
-	public void setPushId(String pushId) {
+	public void setPushId(Integer pushId) {
 		this.pushId = pushId;
 	}
 

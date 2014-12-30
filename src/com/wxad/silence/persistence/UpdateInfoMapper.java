@@ -8,10 +8,5 @@ import com.wxad.silence.domain.UpdateInfo;
  *
  */
 public interface UpdateInfoMapper extends BaseMapper<UpdateInfo>{
-	
-	int insertUpdateInfo(UpdateInfo updateInfo);
-
-	UpdateInfo getByPushId(String pushId);
-	
-	UpdateInfo getById(String id);
+	UpdateInfo getByPushId(int pushId);
 }
