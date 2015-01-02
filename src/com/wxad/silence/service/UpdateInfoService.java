@@ -1,11 +1,12 @@
 package com.wxad.silence.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.wxad.silence.common.Paginator;
 import com.wxad.silence.domain.UpdateInfo;
 import com.wxad.silence.persistence.UpdateInfoMapper;
-
+@Service
 public class UpdateInfoService extends BaseService<UpdateInfo>{
 	private UpdateInfoMapper updateInfoMapper;
 	

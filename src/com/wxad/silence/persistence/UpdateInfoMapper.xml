@@ -53,7 +53,6 @@
 	<sql id="Base_Column_List">
 		id,pushId,version,url,hash
 	</sql>
-
 	<select id="selectAll" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
@@ -66,16 +65,14 @@
 		<include refid="Base_Column_List" />
 		from updatelist where pushId=#{pushId}
 	</select>
-    <select id="count" resultType="java.lang.Integer" parameterType="com.zhanghui.pusher.common.Paginator" >
+    <select id="count" resultType="java.lang.Integer" parameterType="com.wxad.silence.common.Paginator" >
         select count(*)
         from updatelist
-        <include refid="select_count_where_sql"/>
     </select>
-    <select id="select" resultMap="BaseResultMap" parameterType="com.zhanghui.pusher.common.Paginator" >
+    <select id="select" resultMap="BaseResultMap" parameterType="com.wxad.silence.common.Paginator" >
         select
         <include refid="Base_Column_List" />
         from updatelist
-        <include refid="select_count_where_sql"/>
         order by id desc limit #{start},#{sqlSize}
     </select>
     <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">

@@ -14,12 +14,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.wxad.silence.common.IdForm;
 import com.wxad.silence.common.Paginator;
 import com.wxad.silence.common.Query;
+import com.wxad.silence.domain.AppInfo;
 import com.wxad.silence.domain.DeleteInfo;
+import com.wxad.silence.mvc.AppInfoController.Form;
 import com.wxad.silence.service.DeleteInfoService;
+import com.wxad.silence.service.PushRuleInfoService;
 
 @Controller
 @RequestMapping("/push/delete")
 public class DeleteInfoController extends CRUDController<DeleteInfo, DeleteInfoService, DeleteInfoController.Form, Query.NameQuery>{
+	@Resource
+	private PushRuleInfoService pushRuleInfoService;
 	public DeleteInfoController() {
 		super("push/delete");
 	}
@@ -27,7 +32,20 @@ public class DeleteInfoController extends CRUDController<DeleteInfo, DeleteInfoS
 	public void setDeleteInfoService(DeleteInfoService deleteInfoService){
 		this.service=deleteInfoService;
 	}
-
+	 @Override
+	    protected void postCreate(Model model) {
+	    	model.addAttribute("pushRuleList", pushRuleInfoService.getAllPushRulesCache());
+	    	model.addAttribute("pushRuleMap", pushRuleInfoService.getAllPushRulesMapCache());
+	    }
+	    @Override
+	    protected void postModify(int id, DeleteInfo obj, Model model) {
+	    	postCreate(model);
+	    }
+	    @Override
+	    protected void onSaveError(Form form, BindingResult errors, Model model,
+	    		HttpServletRequest request, HttpServletResponse response) {
+	    	postCreate(model);
+	    }
     @Override
     protected boolean preList(int page, Paginator paginator, Query.NameQuery query, Model model) {
         paginator.setNeedTotal(true);
@@ -48,7 +66,6 @@ public class DeleteInfoController extends CRUDController<DeleteInfo, DeleteInfoS
 	public static class Form extends IdForm<DeleteInfo> {
         @NotBlank(message = "包名不能为空")
         private String packageName;
-        @NotBlank(message = "pushId不能为空")
         private Integer pushId;
 
         @Override

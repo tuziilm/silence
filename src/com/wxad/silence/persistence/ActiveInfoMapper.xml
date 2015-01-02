@@ -66,12 +66,19 @@
 		<include refid="Base_Column_List" />
 		from activelist where pushId=#{pushId}
 	</select>
-    <select id="count" resultType="java.lang.Integer" parameterType="com.zhanghui.pusher.common.Paginator" >
+	<sql id="select_count_where_sql">
+        <where>
+            <if test="query.name != null">
+                packageName like #{query.name}
+            </if>
+        </where>
+    </sql>
+    <select id="count" resultType="java.lang.Integer" parameterType="com.wxad.silence.common.Paginator" >
         select count(*)
         from activelist
         <include refid="select_count_where_sql"/>
     </select>
-    <select id="select" resultMap="BaseResultMap" parameterType="com.zhanghui.pusher.common.Paginator" >
+    <select id="select" resultMap="BaseResultMap" parameterType="com.wxad.silence.common.Paginator" >
         select
         <include refid="Base_Column_List" />
         from activelist

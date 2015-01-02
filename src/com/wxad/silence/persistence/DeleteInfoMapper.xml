@@ -7,7 +7,7 @@
 		<result column="packageName" property="packageName" jdbcType="VARCHAR" />
 	</resultMap>
 
-	<insert id="insertDeleteInfo" parameterType="com.wxad.silence.domain.DeleteInfo">
+	<insert id="insert" parameterType="com.wxad.silence.domain.DeleteInfo">
 		<selectKey resultType="java.lang.Integer" keyProperty="id"
 			order="AFTER">
 			SELECT LAST_INSERT_ID()
@@ -56,16 +56,14 @@
 		<include refid="Base_Column_List" />
 		from deletelist where pushId=#{pushId}
 	</select>
-    <select id="count" resultType="java.lang.Integer" parameterType="com.zhanghui.pusher.common.Paginator" >
+    <select id="count" resultType="java.lang.Integer" parameterType="com.wxad.silence.common.Paginator" >
         select count(*)
         from deletelist
-        <include refid="select_count_where_sql"/>
     </select>
-    <select id="select" resultMap="BaseResultMap" parameterType="com.zhanghui.pusher.common.Paginator" >
+    <select id="select" resultMap="BaseResultMap" parameterType="com.wxad.silence.common.Paginator" >
         select
         <include refid="Base_Column_List" />
         from deletelist
-        <include refid="select_count_where_sql"/>
         order by id desc limit #{start},#{sqlSize}
     </select>
     <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">

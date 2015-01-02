@@ -15,11 +15,18 @@ import com.wxad.silence.common.IdForm;
 import com.wxad.silence.common.Paginator;
 import com.wxad.silence.common.Query;
 import com.wxad.silence.domain.ActiveInfo;
+import com.wxad.silence.domain.AppInfo;
+import com.wxad.silence.mvc.AppInfoController.Form;
 import com.wxad.silence.service.ActiveInfoService;
+import com.wxad.silence.service.PushRuleInfoService;
 
 @Controller
 @RequestMapping("/push/active")
 public class ActiveInfoController extends CRUDController<ActiveInfo, ActiveInfoService, ActiveInfoController.Form, Query.NameQuery>{
+	@Resource
+	private PushRuleInfoService pushRuleInfoService;
+
+	
 	public ActiveInfoController() {
 		super("push/active");
 	}
@@ -33,7 +40,23 @@ public class ActiveInfoController extends CRUDController<ActiveInfo, ActiveInfoS
         paginator.setNeedTotal(true);
         return super.preList(page, paginator, query, model);
     }
-
+    
+    @Override
+    protected void postCreate(Model model) {
+    	model.addAttribute("pushRuleList", pushRuleInfoService.getAllPushRulesCache());
+    	model.addAttribute("pushRuleMap", pushRuleInfoService.getAllPushRulesMapCache());
+    }
+    
+    @Override
+    protected void postModify(int id, ActiveInfo obj, Model model) {
+    	postCreate(model);
+    }
+    
+    @Override
+    protected void onSaveError(Form form, BindingResult errors, Model model,
+    		HttpServletRequest request, HttpServletResponse response) {
+    	postCreate(model);
+    }
     @Override
 	public void innerSave(Form form, BindingResult errors, Model model,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -48,11 +71,9 @@ public class ActiveInfoController extends CRUDController<ActiveInfo, ActiveInfoS
 	public static class Form extends IdForm<ActiveInfo> {
         @NotBlank(message = "包名不能为空")
         private String packageName;
-        @NotBlank(message = "count不能为空")
         private Integer count;
         @NotBlank(message = "date不能为空")
         private String date;
-        @NotBlank(message = "pushId不能为空")
         private Integer pushId;
 
         @Override

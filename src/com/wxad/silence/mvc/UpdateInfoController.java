@@ -14,12 +14,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.wxad.silence.common.IdForm;
 import com.wxad.silence.common.Paginator;
 import com.wxad.silence.common.Query;
+import com.wxad.silence.domain.AppInfo;
 import com.wxad.silence.domain.UpdateInfo;
+import com.wxad.silence.mvc.AppInfoController.Form;
+import com.wxad.silence.service.PushRuleInfoService;
 import com.wxad.silence.service.UpdateInfoService;
 
 @Controller
 @RequestMapping("/push/update")
 public class UpdateInfoController extends CRUDController<UpdateInfo, UpdateInfoService, UpdateInfoController.Form, Query.NameQuery>{
+	@Resource
+	private PushRuleInfoService pushRuleInfoService;
+	
 	public UpdateInfoController() {
 		super("push/update");
 	}
@@ -27,7 +33,20 @@ public class UpdateInfoController extends CRUDController<UpdateInfo, UpdateInfoS
 	public void setUpdateInfoService(UpdateInfoService updateInfoService){
 		this.service=updateInfoService;
 	}
-
+	 @Override
+	    protected void postCreate(Model model) {
+	    	model.addAttribute("pushRuleList", pushRuleInfoService.getAllPushRulesCache());
+	    	model.addAttribute("pushRuleMap", pushRuleInfoService.getAllPushRulesMapCache());
+	    }
+	    @Override
+	    protected void postModify(int id, UpdateInfo obj, Model model) {
+	    	postCreate(model);
+	    }
+	    @Override
+	    protected void onSaveError(Form form, BindingResult errors, Model model,
+	    		HttpServletRequest request, HttpServletResponse response) {
+	    	postCreate(model);
+	    }
     @Override
     protected boolean preList(int page, Paginator paginator, Query.NameQuery query, Model model) {
         paginator.setNeedTotal(true);
@@ -52,7 +71,6 @@ public class UpdateInfoController extends CRUDController<UpdateInfo, UpdateInfoS
         private String hash;
         @NotBlank(message = "url不能为空")
         private String url;
-        @NotBlank(message = "pushId不能为空")
         private Integer pushId;
 
         @Override

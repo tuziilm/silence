@@ -1,9 +1,9 @@
 <%@include file="../include/common.jsp" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <c:set var="_pageTitle" value="创建push规则" scope="request"/>
-<c:set var="_underPushInfo" value="active" scope="request"/>
-<c:set var="_activePush" value="active" scope="request"/>
-<c:set var="_module" value="push" scope="request"/>
+<c:set var="_underPushRule" value="active" scope="request"/>
+<c:set var="_activePushRule" value="active" scope="request"/>
+<c:set var="_module" value="pushrule" scope="request"/>
 <c:import url="../theme/${_theme}/header.jsp"></c:import>
 <link rel="stylesheet" href="${basePath}static/jquery/jquery-ui.css" />
 <!-- main content -->

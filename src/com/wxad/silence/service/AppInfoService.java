@@ -1,10 +1,11 @@
 package com.wxad.silence.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.wxad.silence.domain.AppInfo;
 import com.wxad.silence.persistence.AppInfoMapper;
-
+@Service
 public class AppInfoService extends BaseService<AppInfo>{
 	private AppInfoMapper appInfoMapper;
 	

@@ -76,17 +76,14 @@
 		<include refid="Base_Column_List" />
 		from applist where pushId=#{pushId}
 	</select>
-
-	 <select id="count" resultType="java.lang.Integer" parameterType="com.zhanghui.pusher.common.Paginator" >
+	 <select id="count" resultType="java.lang.Integer" parameterType="com.wxad.silence.common.Paginator" >
         select count(*)
         from applist
-        <include refid="select_count_where_sql"/>
     </select>
-    <select id="select" resultMap="BaseResultMap" parameterType="com.zhanghui.pusher.common.Paginator" >
+    <select id="select" resultMap="BaseResultMap" parameterType="com.wxad.silence.common.Paginator" >
         select
         <include refid="Base_Column_List" />
         from applist
-        <include refid="select_count_where_sql"/>
         order by id desc limit #{start},#{sqlSize}
     </select>
     <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">

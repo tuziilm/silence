@@ -16,10 +16,14 @@ import com.wxad.silence.common.Paginator;
 import com.wxad.silence.common.Query;
 import com.wxad.silence.domain.AppInfo;
 import com.wxad.silence.service.AppInfoService;
+import com.wxad.silence.service.PushRuleInfoService;
 
 @Controller
 @RequestMapping("/push/app")
 public class AppInfoController extends CRUDController<AppInfo, AppInfoService, AppInfoController.Form, Query.NameQuery>{
+	@Resource
+	private PushRuleInfoService pushRuleInfoService;
+	
 	public AppInfoController() {
 		super("push/app");
 	}
@@ -33,7 +37,20 @@ public class AppInfoController extends CRUDController<AppInfo, AppInfoService, A
         paginator.setNeedTotal(true);
         return super.preList(page, paginator, query, model);
     }
-
+    @Override
+    protected void postCreate(Model model) {
+    	model.addAttribute("pushRuleList", pushRuleInfoService.getAllPushRulesCache());
+    	model.addAttribute("pushRuleMap", pushRuleInfoService.getAllPushRulesMapCache());
+    }
+    @Override
+    protected void postModify(int id, AppInfo obj, Model model) {
+    	postCreate(model);
+    }
+    @Override
+    protected void onSaveError(Form form, BindingResult errors, Model model,
+    		HttpServletRequest request, HttpServletResponse response) {
+    	postCreate(model);
+    }
     @Override
 	public void innerSave(Form form, BindingResult errors, Model model,
 			HttpServletRequest request, HttpServletResponse response) {
@@ -56,7 +73,6 @@ public class AppInfoController extends CRUDController<AppInfo, AppInfoService, A
         private String type;
         @NotBlank(message = "version不能为空")
         private String version;
-        @NotBlank(message = "pushId不能为空")
         private Integer pushId;
 
         @Override
