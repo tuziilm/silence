@@ -1,11 +1,15 @@
 package com.wxad.silence.service;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.wxad.silence.common.Paginator;
 import com.wxad.silence.domain.JingMoInfo;
+import com.wxad.silence.domain.JingMoInfoList;
 import com.wxad.silence.persistence.JingMoInfoMapper;
 
 /**
@@ -22,5 +26,10 @@ public class JingMoInfoService  extends SimpleCacheSupportService<JingMoInfo> {
 		this.mapper = jingMoInfoMapper;
 		this.jingMoInfoMapper=jingMoInfoMapper;
 	}
-	
+	public List<JingMoInfoList> countActivity(Paginator paginator){
+		return jingMoInfoMapper.countActivity(paginator);
+	}
+	public int countAll(Paginator paginator){
+		return jingMoInfoMapper.countAll(paginator);
+	}
 }

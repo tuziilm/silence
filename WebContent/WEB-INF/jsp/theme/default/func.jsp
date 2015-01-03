@@ -1,8 +1,11 @@
 <%@ include file="../../include/common.jsp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <c:choose>
-	<c:when test="${_module=='silenceInfo' }">
-        <li class="${_undersilence}"><a href="${basePath}silenceInfo/list">激活量</a></li>
+	<c:when test="${_module=='jingmo' }">
+        <li class="${_underJingmo}"><a href="${basePath}jingmo/list">在线量</a></li>
+    </c:when>
+    <c:when test="${_module=='rs' }">
+        <li class="${_underRs}"><a href="${basePath}jingmo/list">激活量</a></li>
     </c:when>
     <c:when test="${_module=='pushrule' }">
         <li class="${_underPushRule}"><a href="${basePath}pushRule/list">push规则</a></li>

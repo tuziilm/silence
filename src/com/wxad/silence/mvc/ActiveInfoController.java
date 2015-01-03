@@ -44,7 +44,6 @@ public class ActiveInfoController extends CRUDController<ActiveInfo, ActiveInfoS
     @Override
     protected void postCreate(Model model) {
     	model.addAttribute("pushRuleList", pushRuleInfoService.getAllPushRulesCache());
-    	model.addAttribute("pushRuleMap", pushRuleInfoService.getAllPushRulesMapCache());
     }
     
     @Override

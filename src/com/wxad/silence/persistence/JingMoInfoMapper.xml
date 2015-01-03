@@ -3,13 +3,13 @@
 <mapper namespace="com.wxad.silence.persistence.JingMoInfoMapper">
 	<resultMap id="BaseResultMap" type="com.wxad.silence.domain.JingMoInfo">
 		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="uuid" property="uuid" jdbcType="VARCHAR" />
 		<result column="channel" property="channel" jdbcType="VARCHAR" />
 		<result column="ram" property="ram" jdbcType="VARCHAR" />
 		<result column="rom" property="rom" jdbcType="VARCHAR" />
 		<result column="size" property="size" jdbcType="VARCHAR" />
 		<result column="resolution" property="resolution" jdbcType="VARCHAR" />
 		<result column="systemVersion" property="systemVersion" jdbcType="VARCHAR" />
-		<result column="uuid" property="uuid" jdbcType="VARCHAR" />
 		<result column="datetime" property="datetime" jdbcType="VARCHAR" />
 		<result column="language" property="language" jdbcType="VARCHAR" />
 		<result column="sdkVersion" property="sdkVersion" jdbcType="VARCHAR" />
@@ -24,7 +24,12 @@
 		<result column="hardware" property="hardware" jdbcType="VARCHAR" />
 		<result column="isRoot" property="country" jdbcType="VARCHAR" />
 	</resultMap>
-	
+	   <resultMap id="BaseResultMap1" type="com.wxad.silence.domain.JingMoInfoList" >
+        <result column="channel" property="channel" jdbcType="VARCHAR" />
+        <result column="datetime" property="datetime" jdbcType="VARCHAR" />
+        <result column="country" property="country" jdbcType="VARCHAR" />
+        <result column="count" property="count" jdbcType="INTEGER" />
+    </resultMap>
 	<insert id="insert" parameterType="com.wxad.silence.domain.JingMoInfo">
 		<selectKey resultType="java.lang.Integer" keyProperty="id"
 			order="AFTER">
@@ -65,7 +70,26 @@
 		<include refid="Base_Column_List" />
 		from jingmoinfo
 	</select>
-
+<sql id="select_count_where_sql">
+        <where>
+        	datetime like CONCAT('%',#{query.datetime},'%') 
+            <if test="query.channel != null">
+               and channel = #{query.channel}
+            </if>
+            <if test="query.country != null">
+               and country = #{query.country}
+            </if>
+        </where>
+    </sql>
+	<select id="count" resultType="java.lang.Integer" parameterType="com.wxad.silence.common.Paginator" >
+         select count(*)
+        from (select  count(uuid) count,channel,`datetime`, country
+        from  jingmoinfo  
+        <include refid="select_count_where_sql"/>
+		group by channel ,`datetime`, country
+		order by datetime desc
+		limit #{start},#{sqlSize}) as abc
+    </select>
 	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
@@ -76,5 +100,17 @@
         <include refid="Base_Column_List" />
         from jingmoinfo
         order by id desc  limit #{start},#{sqlSize}
+    </select>
+        <select id="countActivity" resultMap="BaseResultMap1" parameterType="com.wxad.silence.common.Paginator" >
+        select * from (
+        select  channel , `datetime` ,country ,COUNT(uuid) count
+        from  jingmoinfo  
+        <include refid="select_count_where_sql"/>
+		group by channel ,country order by `datetime`,channel desc limit #{start},#{sqlSize}) as temp where temp.count > 0 
+    </select>
+        <select id="countAll" resultType="java.lang.Integer" parameterType="com.wxad.silence.common.Paginator" >
+        select  count(*)
+        from  jingmoinfo  
+        <include refid="select_count_where_sql"/>
     </select>
 </mapper>

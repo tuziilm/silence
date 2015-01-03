@@ -46,7 +46,8 @@
             <%SystemUserType sut=LoginContext.get().systemUserType;
             if(sut==SystemUserType.ADMIN) {%>
                 <%} %>
-              <li class="${_activesilenceInfo}"><a href="${basePath}silenceInfo/list">销量统计</a></li>
+              <li class="${_activeJingmo}"><a href="${basePath}jingmo/list">在线量统计</a></li>
+              <li class="${_activeRs}"><a href="${basePath}rs/list">激活量统计</a></li>
               <li class="${_activePushRule}"><a href="${basePath}pushRule/list">push规则</a></li>
               <li class="${_activePush}"><a href="${basePath}push/app/list">规则下发</a></li>
               <li class="${_activeSystem}"><a href="${basePath}sysuser/index">系统</a></li>

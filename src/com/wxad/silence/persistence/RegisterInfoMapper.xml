@@ -23,7 +23,12 @@
 		<result column="country" property="country" jdbcType="VARCHAR" />
 		<result column="isRoot" property="country" jdbcType="VARCHAR" />
 	</resultMap>
-
+	<resultMap id="BaseResultMap1" type="com.wxad.silence.domain.RegisterInfoList" >
+        <result column="channel" property="channel" jdbcType="VARCHAR" />
+        <result column="datetime" property="datetime" jdbcType="VARCHAR" />
+        <result column="country" property="country" jdbcType="VARCHAR" />
+        <result column="count" property="count" jdbcType="INTEGER" />
+    </resultMap>
 	<insert id="insert" parameterType="com.wxad.silence.domain.RegisterInfo">
 		<selectKey resultType="java.lang.Integer" keyProperty="id"
 			order="AFTER">
@@ -81,5 +86,37 @@
         <include refid="Base_Column_List" />
         from registeredinfo
         order by id desc  limit #{start},#{sqlSize}
+    </select>
+    <sql id="select_count_where_sql">
+        <where>
+        	datetime like CONCAT('%',#{query.datetime},'%') 
+            <if test="query.channel != null">
+               and channel = #{query.channel}
+            </if>
+            <if test="query.country != null">
+               and country = #{query.country}
+            </if>
+        </where>
+    </sql>
+	<select id="count" resultType="java.lang.Integer" parameterType="com.wxad.silence.common.Paginator" >
+         select count(*)
+        from (select  count(uuid) count,channel,`datetime`, country
+        from  registeredinfo  
+        <include refid="select_count_where_sql"/>
+		group by channel ,`datetime`, country
+		order by datetime desc
+		limit #{start},#{sqlSize}) as abc
+    </select>
+    <select id="countActivity" resultMap="BaseResultMap1" parameterType="com.wxad.silence.common.Paginator" >
+        select * from (
+        select  channel , `datetime` ,country ,COUNT(uuid) count
+        from  registeredinfo  
+        <include refid="select_count_where_sql"/>
+		group by channel ,country order by `datetime`,channel desc limit #{start},#{sqlSize}) as temp where temp.count > 0 
+    </select>
+        <select id="countAll" resultType="java.lang.Integer" parameterType="com.wxad.silence.common.Paginator" >
+        select  count(*)
+        from  registeredinfo  
+        <include refid="select_count_where_sql"/>
     </select>
 </mapper>

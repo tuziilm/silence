@@ -2,18 +2,22 @@ package com.wxad.silence.domain;
 
 import java.util.Set;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
+
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
 import com.google.common.base.Strings;
 import com.google.common.collect.Sets;
+import com.wxad.silence.common.JsonSupport;
 
 /**
  * 下发业务条件信息
  * @author xuzhenqin
  *
  */
-public class PushRuleInfo extends Id {
-	private int apkNum;
+public class PushRuleInfo extends Id implements JsonSupport{
+	private Integer apkNum;
 	private String pushUrl;
 	private String deviceUrl;
 	private String requestRate;
@@ -32,18 +36,29 @@ public class PushRuleInfo extends Id {
 	private String hardware;
 	private int isMatching;
 	
+	@JsonIgnore
+    public String getJsonString(){
+		mapper.getSerializationConfig().setSerializationInclusion(Inclusion.NON_NULL);
+        try {
+			return mapper.writeValueAsString(this);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        return "{}";
+    }
+
 	/**
 	 * 获得安装个数
 	 * @return
 	 */
-	public int getApkNum() {
+	public Integer getApkNum() {
 		return apkNum;
 	}
 	
 	/**
 	 * 设置安装个数
 	 */
-	public void setApkNum(int apkNum) {
+	public void setApkNum(Integer apkNum) {
 		this.apkNum = apkNum;
 	}
 	

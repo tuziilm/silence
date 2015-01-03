@@ -40,7 +40,6 @@ public class AppInfoController extends CRUDController<AppInfo, AppInfoService, A
     @Override
     protected void postCreate(Model model) {
     	model.addAttribute("pushRuleList", pushRuleInfoService.getAllPushRulesCache());
-    	model.addAttribute("pushRuleMap", pushRuleInfoService.getAllPushRulesMapCache());
     }
     @Override
     protected void postModify(int id, AppInfo obj, Model model) {

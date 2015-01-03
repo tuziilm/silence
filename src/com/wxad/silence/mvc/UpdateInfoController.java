@@ -36,7 +36,6 @@ public class UpdateInfoController extends CRUDController<UpdateInfo, UpdateInfoS
 	 @Override
 	    protected void postCreate(Model model) {
 	    	model.addAttribute("pushRuleList", pushRuleInfoService.getAllPushRulesCache());
-	    	model.addAttribute("pushRuleMap", pushRuleInfoService.getAllPushRulesMapCache());
 	    }
 	    @Override
 	    protected void postModify(int id, UpdateInfo obj, Model model) {
