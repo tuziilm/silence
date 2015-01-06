@@ -13,7 +13,7 @@
 <div id="pageContent">
 	<c:import url="../../theme/${_theme}/errors.jsp"></c:import>
 	<form action="${basePath}push/app/save" method="post"
-		class="form-horizontal">
+		class="form-horizontal" enctype="multipart/form-data">
 		<input name="id" type="hidden" value="${form.id}"> <input
 			name="_queryString" type="hidden" value="${param.queryString}">
 		<div class="control-group required-field">
@@ -26,15 +26,7 @@
 		<div class="control-group required-field">
 			<label class="control-label">url:</label>
 			<div class="controls">
-				<input name="url" value="${fn:escapeXml(form.url)}" type="text"
-					class="input-large">
-			</div>
-		</div>
-		<div class="control-group required-field">
-			<label class="control-label">hash:</label>
-			<div class="controls">
-				<input name="hash" value="${fn:escapeXml(form.hash)}" type="text"
-					class="input-large">
+				<input name="url" type="file"/>
 			</div>
 		</div>
 		<div class="control-group required-field">

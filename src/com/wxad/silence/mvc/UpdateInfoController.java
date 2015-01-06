@@ -10,13 +10,16 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.wxad.silence.common.IdForm;
 import com.wxad.silence.common.Paginator;
 import com.wxad.silence.common.Query;
-import com.wxad.silence.domain.AppInfo;
+import com.wxad.silence.common.SHA256Util;
+import com.wxad.silence.common.UpLoads;
+import com.wxad.silence.common.UploadType;
 import com.wxad.silence.domain.UpdateInfo;
-import com.wxad.silence.mvc.AppInfoController.Form;
+import com.wxad.silence.exception.UploadException;
 import com.wxad.silence.service.PushRuleInfoService;
 import com.wxad.silence.service.UpdateInfoService;
 
@@ -57,6 +60,16 @@ public class UpdateInfoController extends CRUDController<UpdateInfo, UpdateInfoS
 			HttpServletRequest request, HttpServletResponse response) {
     	UpdateInfo updateInfo=form.toObj();
 		try{
+			try{
+				if(!form.url.isEmpty()){
+					String url = UpLoads.upload(form.url,UploadType.APK);
+					updateInfo.setUrl(url);
+					updateInfo.setHash(SHA256Util.class.newInstance().getHash(url));
+				}
+			}catch(UploadException e){
+				errors.addError(new ObjectError("upload", "上传失败！"));
+				return;
+			}
             service.saveOrUpdate(updateInfo);
 		} catch (Exception e) {
 			errors.addError(new ObjectError("ex", e.getMessage()));
@@ -66,10 +79,7 @@ public class UpdateInfoController extends CRUDController<UpdateInfo, UpdateInfoS
 	public static class Form extends IdForm<UpdateInfo> {
         @NotBlank(message = "version不能为空")
         private String version;
-        @NotBlank(message = "hash不能为空")
-        private String hash;
-        @NotBlank(message = "url不能为空")
-        private String url;
+        private MultipartFile url;
         private Integer pushId;
 
         @Override
@@ -80,8 +90,6 @@ public class UpdateInfoController extends CRUDController<UpdateInfo, UpdateInfoS
         @Override
         public void silenceulateObj(UpdateInfo updateInfo) {
         	updateInfo.setVersion(version);
-        	updateInfo.setUrl(url);
-        	updateInfo.setHash(hash);
         	updateInfo.setPushId(pushId);
         	
         }
@@ -94,19 +102,11 @@ public class UpdateInfoController extends CRUDController<UpdateInfo, UpdateInfoS
 			this.version = version;
 		}
 
-		public String getHash() {
-			return hash;
-		}
-
-		public void setHash(String hash) {
-			this.hash = hash;
-		}
-
-		public String getUrl() {
+		public MultipartFile getUrl() {
 			return url;
 		}
 
-		public void setUrl(String url) {
+		public void setUrl(MultipartFile url) {
 			this.url = url;
 		}
 
